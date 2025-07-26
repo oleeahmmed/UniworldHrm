@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Document Types{% endblock %}
+{% block page_title %}Document Type Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Document Types</h1>
+            <p class="mb-0 text-muted">Manage document types and categories</p>
+        </div>
+        <a href="{{ create_url }}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add Document Type
+        </a>
+    </div>
+
+    <!-- Document Types List -->
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Document Types ({{ page_obj.paginator.count }})</h6>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Settings</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doc_type in objects %}
+                        <tr>
+                            <td><strong>{{ doc_type.name }}</strong></td>
+                            <td><code>{{ doc_type.code }}</code></td>
+                            <td>{{ doc_type.description|truncatewords:15|default:"No description" }}</td>
+                            <td>
+                                {% if doc_type.is_required %}
+                                <span class="badge bg-danger">Required</span>
+                                {% endif %}
+                                {% if doc_type.is_confidential %}
+                                <span class="badge bg-warning">Confidential</span>
+                                {% endif %}
+                                {% if doc_type.expiry_applicable %}
+                                <span class="badge bg-info">Expiry</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="{% url 'hrm:document_type_update' doc_type.pk %}" 
+                                       class="btn btn-outline-warning" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{% url 'hrm:document_type_delete' doc_type.pk %}" 
+                                       class="btn btn-outline-danger" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-4">
+                                <div class="text-muted">
+                                    <i class="fas fa-file fa-3x mb-3"></i>
+                                    <p>No document types found.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

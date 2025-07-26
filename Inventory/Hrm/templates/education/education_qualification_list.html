@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Education Qualifications{% endblock %}
+{% block page_title %}Education Qualification Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Education Qualifications</h1>
+            <p class="mb-0 text-muted">Manage employee education qualifications</p>
+        </div>
+        <a href="{{ create_url }}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add Qualification
+        </a>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Filter Qualifications</h6>
+        </div>
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    {{ filter_form.search }}
+                </div>
+                <div class="col-md-3">
+                    {{ filter_form.education_level }}
+                </div>
+                <div class="col-md-3">
+                    {{ filter_form.employee }}
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-outline-primary w-100">Filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Qualifications List -->
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Qualifications ({{ page_obj.paginator.count }})</h6>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Employee</th>
+                            <th>Degree</th>
+                            <th>Institution</th>
+                            <th>Level</th>
+                            <th>Duration</th>
+                            <th>Result</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for qualification in objects %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <strong>{{ qualification.employee.get_full_name }}</strong><br>
+                                    <small class="text-muted">{{ qualification.employee.employee_id }}</small>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>{{ qualification.degree_title }}</strong>
+                                {% if qualification.major_subject %}
+                                <br><small class="text-muted">{{ qualification.major_subject }}</small>
+                                {% endif %}
+                            </td>
+                            <td>{{ qualification.institution_name }}</td>
+                            <td>{{ qualification.education_level.name }}</td>
+                            <td>
+                                {{ qualification.start_date|default:"N/A" }} - 
+                                {{ qualification.end_date|default:"Present" }}
+                            </td>
+                            <td>
+                                {% if qualification.result %}
+                                <span class="badge bg-success">{{ qualification.get_result_display }}</span>
+                                {% else %}
+                                <span class="text-muted">N/A</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if qualification.is_verified %}
+                                <span class="badge bg-success">Verified</span>
+                                {% else %}
+                                <span class="badge bg-warning">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="{% url 'hrm:education_qualification_update' qualification.pk %}" 
+                                       class="btn btn-outline-warning" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{% url 'hrm:education_qualification_delete' qualification.pk %}" 
+                                       class="btn btn-outline-danger" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center py-4">
+                                <div class="text-muted">
+                                    <i class="fas fa-graduation-cap fa-3x mb-3"></i>
+                                    <p>No education qualifications found.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
