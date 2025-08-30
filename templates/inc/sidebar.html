@@ -96,15 +96,15 @@
 <div class="mt-6 pt-6 border-t border-[hsl(var(--border))]">
                     <h3 class="px-3 mb-2 text-xs font-medium text-[hsl(var(--muted-foreground))]">QUICK ACTIONS</h3>
                     <div class="grid grid-cols-2 gap-2">
-                        <button class="flex flex-col items-center justify-center p-4 rounded-lg border border-[hsl(var(--border))] hover:bg-[hsl(var(--accent))] hover:border-[hsl(var(--primary))] transition-all duration-300 group premium-card">
+                        <a href="{% url 'hrm:zk_device_sync' %}" > <button class="flex flex-col items-center justify-center p-4 rounded-lg border border-[hsl(var(--border))] hover:bg-[hsl(var(--accent))] hover:border-[hsl(var(--primary))] transition-all duration-300 group premium-card">
                             <div class="flex items-center justify-center w-8 h-8 mb-2 rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] transform group-hover:scale-110 transition-transform">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg>
                             </div>
-                           <a href="{% url 'hrm:zk_device_sync' %}" >  <span class="text-xs font-medium sidebar-text"> </span>Device Sync  </span></a>
+                            <span class="text-xs font-medium sidebar-text"> </span>Device Sync  </span>
                         </button>
-
+</a>
 <!-- 
                          <button class="flex flex-col items-center justify-center p-4 rounded-lg border border-[hsl(var(--border))] hover:bg-[hsl(var(--accent))] hover:border-[hsl(var(--primary))] transition-all duration-300 group premium-card">
                             <div class="flex items-center justify-center w-8 h-8 mb-2 rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] transform group-hover:scale-110 transition-transform">
@@ -134,15 +134,15 @@
                             </div>
                           <a href="{% url 'hrm:attendance_model_attendance_summery' %}"  > <span class="text-xs font-medium sidebar-text"> Attendance Summery</span></a>
                         </button> -->
-                                                <button class="flex flex-col items-center justify-center p-4 rounded-lg border border-[hsl(var(--border))] hover:bg-[hsl(var(--accent))] hover:border-[hsl(var(--primary))] transition-all duration-300 group premium-card">
+                                             <a href="{% url 'hrm:report-list' %}"  >  <button class="flex flex-col items-center justify-center p-4 rounded-lg border border-[hsl(var(--border))] hover:bg-[hsl(var(--accent))] hover:border-[hsl(var(--primary))] transition-all duration-300 group premium-card">
                             <div class="flex items-center justify-center w-8 h-8 mb-2 rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] transform group-hover:scale-110 transition-transform">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg> 
                             </div>
-                          <a href="{% url 'hrm:report-list' %}"  > <span class="text-xs font-medium sidebar-text"> Reports </span></a>
+                           <span class="text-xs font-medium sidebar-text"> Reports </span>
                         </button>
-
+</a>
                       
                       
                     </div>
